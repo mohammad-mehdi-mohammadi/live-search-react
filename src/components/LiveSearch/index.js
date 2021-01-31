@@ -8,7 +8,7 @@ import {
 import {connect} from "react-redux";
 
 const LiveSearch = (props) => {
-    const [loading, setLoading] = useState(false)
+
     let timer = null
     const handleChange = (value) => {
         if (timer !== null) {
@@ -18,7 +18,7 @@ const LiveSearch = (props) => {
             return;
         }
         timer = setTimeout(() => {
-            props.fetchList();
+            props.fetchList(value);
             console.log('This will run after 1 second!')
         }, 700);
 
@@ -32,30 +32,29 @@ const LiveSearch = (props) => {
 
             <div className={styles.searchArea}>
                 <div>
-                    {
-                        props.list.map(function (person) {
-                            return (
-                                <div>
-                                    {person.avatar_url}, {person.login}
-                                </div>
-                            );
-                        })
-                    }
+
                 </div>
                 <input placeholder="Search..." className={styles.searchInput}
                        onChange={e => handleChange(e.target.value)}/>
 
                 {
-                    loading &&
+                    props.isLoading &&
                     <div className={styles.loading}>
                         <div className="loader"></div>
                     </div>
                 }
-                <div className={styles.suggestionArea}>
-                    <a href="#">title</a>
-                    <a href="#">title</a>
-                    <a href="#">title</a>
-                </div>
+                {
+                    props.list.length > 0 &&
+                    <div className={styles.suggestionArea}>
+                        {
+                            props.list.map(function (person) {
+                                return (
+                                    <a href="#">{person.name}, {person.family}</a>
+                                );
+                            })
+                        }
+                    </div>
+                }
             </div>
         </>
     );
@@ -64,12 +63,13 @@ const LiveSearch = (props) => {
 const mapStateToProps = (state, props) => {
 
     return {
-        list: state.LiveSearchReducer.list
+        list: state.LiveSearchReducer.list,
+        isLoading: state.LiveSearchReducer.isLoading
     };
 };
 const mapDispachToProps = (dispatch) => {
     return {
-        fetchList: () => dispatch(fetchList()),
+        fetchList: (data) => dispatch(fetchList(data)),
     };
 };
 export default connect(

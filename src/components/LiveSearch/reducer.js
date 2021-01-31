@@ -5,13 +5,12 @@ import {
 
 const initialState = {
     list: [],
-    isLoading: true,
+    isLoading: false,
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
         case FETCH_LIST_SUCCESS:
-            // console.log(action.payload)
             return {
                 ...state,
                 list: action.payload,

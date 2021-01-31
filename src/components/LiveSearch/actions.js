@@ -19,9 +19,11 @@ export function fetchListSuccess(payload) {
     };
 }
 
-export function fetchList() {
+export function fetchList(data) {
+
     return {
         type: FETCH_LIST,
+        value: data
     };
 }
 
