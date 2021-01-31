@@ -1,13 +1,14 @@
 import * as React from "react";
 import styles from './LiveSearch.module.sass'
 import loading from './../../assets/img/loading.gif'
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {
     fetchList,
 } from './actions';
 import {connect} from "react-redux";
 
 const LiveSearch = (props) => {
+    const [loading, setLoading] = useState(false)
     let timer = null
     const handleChange = (value) => {
         if (timer !== null) {
@@ -28,12 +29,28 @@ const LiveSearch = (props) => {
     }, []);
     return (
         <>
+
             <div className={styles.searchArea}>
+                <div>
+                    {
+                        props.list.map(function (person) {
+                            return (
+                                <div>
+                                    {person.avatar_url}, {person.login}
+                                </div>
+                            );
+                        })
+                    }
+                </div>
                 <input placeholder="Search..." className={styles.searchInput}
                        onChange={e => handleChange(e.target.value)}/>
-                <div className={styles.loading}>
-                    <img src={loading}/>
-                </div>
+
+                {
+                    loading &&
+                    <div className={styles.loading}>
+                        <div className="loader"></div>
+                    </div>
+                }
                 <div className={styles.suggestionArea}>
                     <a href="#">title</a>
                     <a href="#">title</a>
@@ -45,8 +62,9 @@ const LiveSearch = (props) => {
 }
 
 const mapStateToProps = (state, props) => {
+
     return {
-        files: state.files
+        list: state.LiveSearchReducer.list
     };
 };
 const mapDispachToProps = (dispatch) => {

@@ -5,17 +5,17 @@ import {
 } from './constants';
 
 export function listIsLoading(bool) {
-    console.log("loading")
+    // console.log("loading")
     return {
         type: LIST_IS_LOADING,
-        isLoading: bool,
+        payload: bool,
     };
 }
 
-export function fetchListSuccess(list) {
+export function fetchListSuccess(payload) {
     return {
         type: FETCH_LIST_SUCCESS,
-        list,
+        payload,
     };
 }
 
@@ -24,3 +24,10 @@ export function fetchList() {
         type: FETCH_LIST,
     };
 }
+
+
+// export const Request_API_DATA = "REQUEST_API_DATA";
+// export const RECIEVE_API_DATA = "RECIEVE_API_DATA";
+//
+// export const requestApiData = () => ({ type: Request_API_DATA })
+// export const recieveApiData = data => ({ type: RECIEVE_API_DATA, data })

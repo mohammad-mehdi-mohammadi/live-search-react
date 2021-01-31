@@ -8,18 +8,20 @@ const initialState = {
     isLoading: true,
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
     switch (action.type) {
         case FETCH_LIST_SUCCESS:
+            // console.log(action.payload)
             return {
                 ...state,
-                list: action.list,
+                list: action.payload,
             };
+
         case LIST_IS_LOADING:
-            console.log("loading")
+
             return {
                 ...state,
-                isLoading: action.isLoading,
+                isLoading: action.payload,
             };
         default:
             return state;

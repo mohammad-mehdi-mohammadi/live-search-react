@@ -24,11 +24,12 @@ export function fetchUser() {
 }
 
 export function* fetchListFlow(action) {
-    console.log("SALAMAs")
-    // const result = yield call(fetchUser);
-    // if (result) {
-    //     yield put(fetchListSuccess(result));
-    // }
+    // console.log("SALAMAs")
+    const result = yield call(fetchUser);
+    // console.log(result)
+    if (result) {
+        yield put(fetchListSuccess(result));
+    }
     yield put(listIsLoading(false));
 }
 // All sagas to be loaded
