@@ -30,6 +30,7 @@ export function fetchUser(value) {
 }
 
 export function* fetchListFlow(action) {
+
     yield put(listIsLoading(true));
     const result = yield call(fetchUser, action.value);
     if (result) {

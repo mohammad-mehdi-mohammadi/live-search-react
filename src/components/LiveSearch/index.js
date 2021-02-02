@@ -29,7 +29,6 @@ const LiveSearch = (props) => {
     }, []);
     return (
         <>
-
             <div className={styles.searchArea}>
                 <div>
 
