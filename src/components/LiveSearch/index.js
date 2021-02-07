@@ -4,6 +4,7 @@ import loading from './../../assets/img/loading.gif'
 import {useEffect, useState} from "react";
 import {
     fetchList,
+    abortRequest
 } from './actions';
 import {connect} from "react-redux";
 
@@ -25,7 +26,10 @@ const LiveSearch = (props) => {
 
     }
     useEffect(() => {
-        return () => clearTimeout(timer);
+        return () => {
+            clearTimeout(timer);
+            props.abortRequest();
+        }
     }, []);
     return (
         <>
@@ -69,6 +73,7 @@ const mapStateToProps = (state, props) => {
 const mapDispachToProps = (dispatch) => {
     return {
         fetchList: (data) => dispatch(fetchList(data)),
+        abortRequest: () => dispatch(abortRequest())
     };
 };
 export default connect(

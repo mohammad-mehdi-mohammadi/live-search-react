@@ -1,6 +1,7 @@
 import {put, call, takeLatest} from 'redux-saga/effects';
 import {
     FETCH_LIST,
+    ABORT_REQUEST
 } from './constants';
 import {
     fetchListSuccess,
@@ -41,7 +42,16 @@ export function* fetchListFlow(action) {
 
 }
 
+export function* abortRequest() {
+    if (CancelToken) {
+        CancelToken.cancel('cancelled');
+        CancelToken = axios.CancelToken.source()
+    }
+
+}
+
 // All sagas to be loaded
 export default [
     takeLatest(FETCH_LIST, fetchListFlow),
+    takeLatest(ABORT_REQUEST, abortRequest),
 ];
