@@ -16,6 +16,7 @@ const LiveSearch = (props) => {
             clearTimeout(timer)
         }
         if (value.length <= 0) {
+            props.abortRequest();
             return;
         }
         timer = setTimeout(() => {
@@ -50,9 +51,10 @@ const LiveSearch = (props) => {
                     props.list.length > 0 &&
                     <div className={styles.suggestionArea}>
                         {
-                            props.list.map(function (person) {
+                            props.list.map(function (person, index) {
                                 return (
-                                    <a href="#">{person.name}, {person.family}</a>
+                                    <a href={`/live-search/${person.id}`}
+                                       key={index}>{person.name}, {person.family}</a>
                                 );
                             })
                         }
