@@ -12,7 +12,7 @@ function App() {
             <Header/>
             <Switch>
                 <Route exact path='/live-search'><LiveSearch/></Route>
-                <Route exact path='/live-search/:name' component={LiveSearch}/>
+                <Route exact path='/live-search/:name' component={Home}/>
                 <Route exact path='/home' component={Home}/>
             </Switch>
         </div>
