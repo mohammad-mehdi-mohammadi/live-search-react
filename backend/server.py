@@ -30,5 +30,21 @@ def index():
     return jsonify(results)
 
 
+@app.route('/api/get-post')
+def get_post():
+    args = request.args.to_dict()
+    result = dict()
+
+    if 'id' not in args:
+        return jsonify(result)
+
+    for record in database:
+        if str(record['id']) == args['id']:
+            result = record
+            break
+
+    return jsonify(result)
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
