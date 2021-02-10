@@ -2,13 +2,13 @@ import {
     ABORT_REQUEST,
     FETCH_LIST,
     FETCH_LIST_SUCCESS,
-    LIST_IS_LOADING,
+    USER_DETAIL_HTTP_BEGIN,
 } from './constants';
 
 export function listIsLoading(bool) {
     // console.log("loading")
     return {
-        type: LIST_IS_LOADING,
+        type: USER_DETAIL_HTTP_BEGIN,
         payload: bool,
     };
 }

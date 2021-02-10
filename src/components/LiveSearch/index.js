@@ -6,12 +6,13 @@ import DropDown from './DropDown'
 import {
     fetchList,
     abortRequest
-} from './actions';
+} from './actions/LiveSearch.action';
 import {connect} from "react-redux";
 import useOutsideClick from "./DropDown";
 import {Link} from "react-router-dom";
 
 const LiveSearch = (props) => {
+
     const ref = useRef();
     const [toggleOpen, setToggleOpen] = useState(true)
     let timer = null
@@ -44,6 +45,7 @@ const LiveSearch = (props) => {
     }, []);
     return (
         <>
+
             <div className={styles.searchArea}>
 
                 <input placeholder="Search..." className={styles.searchInput}
@@ -63,7 +65,7 @@ const LiveSearch = (props) => {
                         {
                             props.list.map(function (person, index) {
                                 return (
-                                    <Link to={`/live-search/${person.id}`}
+                                    <Link to={`/user-detail/${person.id}`}
                                           key={index}>{person.name}, {person.family}</Link>
                                 );
                             })
