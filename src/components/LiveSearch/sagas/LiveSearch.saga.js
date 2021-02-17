@@ -1,8 +1,8 @@
 import {put, call, takeLatest} from 'redux-saga/effects';
 import {
     FETCH_LIST,
-    ABORT_REQUEST
-} from './../contants/LiveSearch.constant';
+    ABORT_REQUEST, FETCH_LIST_BEGIN
+} from './../constants/LiveSearch.constant';
 import {
     fetchListSuccess,
     listIsLoading,
@@ -52,6 +52,6 @@ export function* abortRequest() {
 
 // All sagas to be loaded
 export default [
-    takeLatest(FETCH_LIST, fetchListFlow),
+    takeLatest(FETCH_LIST_BEGIN, fetchListFlow),
     takeLatest(ABORT_REQUEST, abortRequest),
 ];

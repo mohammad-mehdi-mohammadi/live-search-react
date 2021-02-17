@@ -1,37 +1,35 @@
 import {
-    ABORT_REQUEST,
-    FETCH_LIST,
-    FETCH_LIST_SUCCESS,
-    USER_DETAIL_HTTP_BEGIN,
-} from './constants';
+    FETCH_DETAIL_BEGIN,
+
+} from './../constants/Detail.constants';
 
 export function listIsLoading(bool) {
     // console.log("loading")
-    return {
-        type: USER_DETAIL_HTTP_BEGIN,
-        payload: bool,
-    };
+    // return {
+    //     type: USER_DETAIL_HTTP_BEGIN,
+    //     payload: bool,
+    // };
 }
 
 export function fetchListSuccess(payload) {
-    return {
-        type: FETCH_LIST_SUCCESS,
-        payload,
-    };
+    // return {
+    //     type: FETCH_LIST_SUCCESS,
+    //     payload,
+    // };
 }
 
 export function fetchList(data) {
 
-    return {
-        type: FETCH_LIST,
-        value: data
-    };
+    // return {
+    //     type: FETCH_LIST,
+    //     value: data
+    // };
 }
 export function abortRequest() {
 
-    return {
-        type: ABORT_REQUEST
-    };
+    // return {
+    //     type: ABORT_REQUEST
+    // };
 }
 
 // export const Request_API_DATA = "REQUEST_API_DATA";

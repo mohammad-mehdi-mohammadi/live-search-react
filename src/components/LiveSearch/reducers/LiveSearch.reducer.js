@@ -1,7 +1,7 @@
 import {
     FETCH_LIST_SUCCESS,
     LIST_IS_LOADING,
-} from '../contants/LiveSearch.constant';
+} from '../constants/LiveSearch.constant';
 
 const initialState = {
     list: [],

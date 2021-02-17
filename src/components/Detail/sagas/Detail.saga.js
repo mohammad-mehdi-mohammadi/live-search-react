@@ -1,14 +1,13 @@
 import {put, call, takeLatest} from 'redux-saga/effects';
 import {
-    FETCH_LIST,
-    ABORT_REQUEST
-} from './constants';
+    FETCH_DETAIL_BEGIN,
+} from './../constants/Detail.constants';
 import {
     fetchListSuccess,
     listIsLoading,
-} from './actions';
+} from './../actions/Detail.actions';
 import axios from 'axios';
-import {endpoint} from './../../_shared/axios-proxy/setupProxy'
+import {endpoint} from './../../../_shared/axios-proxy/setupProxy'
 
 let CancelToken = axios.CancelToken.source()
 
@@ -52,6 +51,6 @@ export function* abortRequest() {
 
 // All sagas to be loaded
 export default [
-    takeLatest(FETCH_LIST, fetchListFlow),
-    takeLatest(ABORT_REQUEST, abortRequest),
+    // takeLatest(FETCH_LIST, fetchListFlow),
+    // takeLatest(ABORT_REQUEST, abortRequest),
 ];

@@ -1,9 +1,9 @@
 import {
     ABORT_REQUEST,
-    FETCH_LIST,
+    FETCH_LIST_BEGIN,
     FETCH_LIST_SUCCESS,
     LIST_IS_LOADING,
-} from '../contants/LiveSearch.constant';
+} from '../constants/LiveSearch.constant';
 
 export function listIsLoading(bool) {
     // console.log("loading")
@@ -23,7 +23,7 @@ export function fetchListSuccess(payload) {
 export function fetchList(data) {
 
     return {
-        type: FETCH_LIST,
+        type: FETCH_LIST_BEGIN,
         value: data
     };
 }

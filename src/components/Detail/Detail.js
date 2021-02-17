@@ -1,9 +1,9 @@
 import * as React from "react";
-import styles from './UserDetail.module.sass'
+import styles from './Detail.module.sass'
 import {useParams} from "react-router";
 
 
-const UserDetail = () => {
+const Detail = () => {
     const { id } = useParams();
 
 
@@ -14,4 +14,4 @@ const UserDetail = () => {
     );
 }
 
-export default UserDetail;
+export default Detail;
