@@ -65,7 +65,7 @@ const LiveSearch = (props) => {
                         {
                             props.list.map(function (person, index) {
                                 return (
-                                    <Link to={`/user-detail/${person.id}`}
+                                    <Link to={`/detail/${person.id}`}
                                           key={index}>{person.name}, {person.family}</Link>
                                 );
                             })

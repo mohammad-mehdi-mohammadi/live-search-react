@@ -1,17 +1,50 @@
 import * as React from "react";
 import styles from './Detail.module.sass'
 import {useParams} from "react-router";
+import {abortRequest, fetchList} from "../LiveSearch/actions/LiveSearch.action";
+import {connect} from "react-redux";
 
 
-const Detail = () => {
-    const { id } = useParams();
+const Detail = (props) => {
+    const {id} = useParams();
 
 
     return (
         <>
-            
+            <div className={styles.detailArea}>
+
+                {
+                    props.isLoading ?
+                        <div className={styles.loading}>
+                            <div className="loader"></div>
+                        </div> :
+                        <div>
+                            <h3>Title</h3>
+                            <div>
+                                Field
+                            </div>
+                        </div>
+                }
+            </div>
+
         </>
     );
 }
 
-export default Detail;
+const mapStateToProps = (state, props) => {
+
+    return {
+        list: state.LiveSearchReducer.list,
+        isLoading: state.LiveSearchReducer.isLoading
+    };
+};
+const mapDispachToProps = (dispatch) => {
+    return {
+        fetchList: (data) => dispatch(fetchList(data)),
+        abortRequest: () => dispatch(abortRequest())
+    };
+};
+export default connect(
+    mapStateToProps,
+    mapDispachToProps
+)(Detail);

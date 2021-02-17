@@ -29,15 +29,15 @@ export function fetchUser(value) {
     return result
 }
 
-export function* fetchListFlow(action) {
+export function* fetchDetail(action) {
 
-    yield put(listIsLoading(true));
-    const result = yield call(fetchUser, action.value);
-    if (result) {
-        yield put(fetchListSuccess(result));
-
-    }
-    yield put(listIsLoading(false));
+    // yield put(listIsLoading(true));
+    // const result = yield call(fetchUser, action.value);
+    // if (result) {
+    //     yield put(fetchListSuccess(result));
+    //
+    // }
+    // yield put(listIsLoading(false));
 
 }
 
@@ -51,6 +51,6 @@ export function* abortRequest() {
 
 // All sagas to be loaded
 export default [
-    // takeLatest(FETCH_LIST, fetchListFlow),
+    takeLatest(FETCH_DETAIL_BEGIN, fetchDetail),
     // takeLatest(ABORT_REQUEST, abortRequest),
 ];

@@ -3,7 +3,10 @@ import {
 } from './../constants/Detail.constants';
 
 const initialState = {
-    list: [],
+    detail: {
+        title: '',
+        field: ''
+    },
     isLoading: false,
 };
 
