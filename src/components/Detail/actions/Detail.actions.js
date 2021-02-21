@@ -1,21 +1,20 @@
 import {
     FETCH_DETAIL_BEGIN,
-
+    FETCH_DETAIL_SUCCESS
 } from './../constants/Detail.constants';
 
-export function listIsLoading(bool) {
-    // console.log("loading")
-    // return {
-    //     type: USER_DETAIL_HTTP_BEGIN,
-    //     payload: bool,
-    // };
+
+export function fetchDetailBegin() {
+    return {
+        type: FETCH_DETAIL_BEGIN
+    };
 }
 
-export function fetchListSuccess(payload) {
-    // return {
-    //     type: FETCH_LIST_SUCCESS,
-    //     payload,
-    // };
+export function fetchDetailSuccess(payload) {
+    return {
+        type: FETCH_DETAIL_SUCCESS,
+        payload,
+    };
 }
 
 export function fetchList(data) {
@@ -25,6 +24,7 @@ export function fetchList(data) {
     //     value: data
     // };
 }
+
 export function abortRequest() {
 
     // return {
