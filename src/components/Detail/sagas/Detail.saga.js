@@ -8,6 +8,7 @@ import {
 } from './../actions/Detail.actions';
 import axios from 'axios';
 import {endpoint} from './../../../_shared/axios-proxy/setupProxy'
+import {fetchListBegin} from "../../LiveSearch/actions/LiveSearch.action";
 
 let CancelToken = axios.CancelToken.source()
 
@@ -32,11 +33,11 @@ export function fetchUser(value) {
 export function* fetchDetail(action) {
 
     // yield put(listIsLoading(true));
-    // const result = yield call(fetchUser, action.value);
-    // if (result) {
-    //     yield put(fetchListSuccess(result));
-    //
-    // }
+    const result = yield call(fetchListBegin, action.value);
+    if (result) {
+        yield put(fetchListSuccess(result));
+
+    }
     // yield put(listIsLoading(false));
 
 }

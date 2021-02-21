@@ -5,13 +5,6 @@ import {
     LIST_IS_LOADING,
 } from '../constants/LiveSearch.constant';
 
-export function listIsLoading(bool) {
-    // console.log("loading")
-    return {
-        type: LIST_IS_LOADING,
-        payload: bool,
-    };
-}
 
 export function fetchListSuccess(payload) {
     return {
@@ -20,7 +13,7 @@ export function fetchListSuccess(payload) {
     };
 }
 
-export function fetchList(data) {
+export function fetchListBegin(data) {
 
     return {
         type: FETCH_LIST_BEGIN,

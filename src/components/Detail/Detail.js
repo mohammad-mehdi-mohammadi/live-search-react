@@ -1,7 +1,7 @@
 import * as React from "react";
 import styles from './Detail.module.sass'
 import {useParams} from "react-router";
-import {abortRequest, fetchList} from "../LiveSearch/actions/LiveSearch.action";
+import {abortRequest, fetchList, fetchListBegin} from "../LiveSearch/actions/LiveSearch.action";
 import {connect} from "react-redux";
 
 
@@ -40,7 +40,7 @@ const mapStateToProps = (state, props) => {
 };
 const mapDispachToProps = (dispatch) => {
     return {
-        fetchList: (data) => dispatch(fetchList(data)),
+        fetchList: (data) => dispatch(fetchListBegin(data)),
         abortRequest: () => dispatch(abortRequest())
     };
 };
