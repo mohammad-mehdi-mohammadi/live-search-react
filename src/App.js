@@ -1,7 +1,7 @@
 import React from "react";
 import './App.css';
 import {Route, Switch} from 'react-router-dom';
-import LiveSearch from "./components/LiveSearch";
+import LiveSearch from "./components/LiveSearch/LiveSearch";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Detail from "./components/Detail/Detail";

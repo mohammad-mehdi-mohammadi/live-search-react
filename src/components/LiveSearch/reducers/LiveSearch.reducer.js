@@ -1,6 +1,6 @@
 import {
+    FETCH_LIST_BEGIN,
     FETCH_LIST_SUCCESS,
-    LIST_IS_LOADING,
 } from '../constants/LiveSearch.constant';
 
 const initialState = {
@@ -14,14 +14,14 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 list: action.payload,
+                isLoading: false
             };
-
-        case LIST_IS_LOADING:
-
+        case FETCH_LIST_BEGIN:
             return {
                 ...state,
-                isLoading: action.payload,
+                isLoading: true
             };
+
         default:
             return state;
     }

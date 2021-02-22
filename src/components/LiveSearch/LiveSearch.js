@@ -1,10 +1,8 @@
 import * as React from "react";
 import styles from './LiveSearch.module.sass'
-import loading from './../../assets/img/loading.gif'
 import {useEffect, useRef, useState} from "react";
-import DropDown from './DropDown'
 import {
-    fetchList,
+    fetchListBegin,
     abortRequest
 } from './actions/LiveSearch.action';
 import {connect} from "react-redux";
@@ -25,18 +23,13 @@ const LiveSearch = (props) => {
             return;
         }
         timer = setTimeout(() => {
-            props.fetchList(value);
+            props.fetchListBegin(value);
             console.log('This will run after 1 second!')
         }, 700);
-
-
     }
-
-
     useOutsideClick(ref, () => {
         setToggleOpen(!toggleOpen)
     });
-
     useEffect(() => {
         return () => {
             clearTimeout(timer);
@@ -45,7 +38,6 @@ const LiveSearch = (props) => {
     }, []);
     return (
         <>
-
             <div className={styles.searchArea}>
 
                 <input placeholder="Search..." className={styles.searchInput}
@@ -87,7 +79,7 @@ const mapStateToProps = (state, props) => {
 };
 const mapDispachToProps = (dispatch) => {
     return {
-        fetchList: (data) => dispatch(fetchList(data)),
+        fetchListBegin: (data) => dispatch(fetchListBegin(data)),
         abortRequest: () => dispatch(abortRequest())
     };
 };

@@ -1,18 +1,16 @@
 import {put, call, takeLatest} from 'redux-saga/effects';
 import {
-    FETCH_LIST,
     ABORT_REQUEST, FETCH_LIST_BEGIN
 } from './../constants/LiveSearch.constant';
 import {
     fetchListSuccess,
-    listIsLoading,
 } from './../actions/LiveSearch.action';
 import axios from 'axios';
 import {endpoint} from '../../../_shared/axios-proxy/setupProxy'
 
 let CancelToken = axios.CancelToken.source()
 
-export function fetchUser(value) {
+export function getSuggestions(value) {
 
     if (CancelToken) {
         CancelToken.cancel('cancelled');
@@ -32,14 +30,11 @@ export function fetchUser(value) {
 
 export function* fetchListFlow(action) {
 
-    yield put(listIsLoading(true));
-    const result = yield call(fetchUser, action.value);
+    const result = yield call(getSuggestions, action.value);
     if (result) {
         yield put(fetchListSuccess(result));
 
     }
-    yield put(listIsLoading(false));
-
 }
 
 export function* abortRequest() {
@@ -47,7 +42,6 @@ export function* abortRequest() {
         CancelToken.cancel('cancelled');
         CancelToken = axios.CancelToken.source()
     }
-
 }
 
 // All sagas to be loaded

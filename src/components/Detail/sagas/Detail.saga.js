@@ -3,22 +3,22 @@ import {
     FETCH_DETAIL_BEGIN,
 } from './../constants/Detail.constants';
 import {
-    fetchListSuccess,
-    listIsLoading,
+    fetchDetailBegin,
+    fetchDetailSuccess,
 } from './../actions/Detail.actions';
 import axios from 'axios';
 import {endpoint} from './../../../_shared/axios-proxy/setupProxy'
-import {fetchListBegin} from "../../LiveSearch/actions/LiveSearch.action";
+
 
 let CancelToken = axios.CancelToken.source()
 
-export function fetchUser(value) {
+export function getDetail(id) {
 
     if (CancelToken) {
         CancelToken.cancel('cancelled');
         CancelToken = axios.CancelToken.source()
     }
-    const result = endpoint.get(`/get-posts?term=${value}`, {
+    const result = endpoint.get(`/get-post?id=${id}`, {
         cancelToken: CancelToken.token
     })
         .then(function (response) {
@@ -33,9 +33,10 @@ export function fetchUser(value) {
 export function* fetchDetail(action) {
 
     // yield put(listIsLoading(true));
-    const result = yield call(fetchListBegin, action.value);
+    console.log(action)
+    const result = yield call(getDetail, action.payload);
     if (result) {
-        yield put(fetchListSuccess(result));
+        yield put(fetchDetailSuccess(result));
 
     }
     // yield put(listIsLoading(false));

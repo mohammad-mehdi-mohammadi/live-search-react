@@ -1,14 +1,18 @@
 import * as React from "react";
 import styles from './Detail.module.sass'
 import {useParams} from "react-router";
-import {abortRequest, fetchList, fetchListBegin} from "../LiveSearch/actions/LiveSearch.action";
+
 import {connect} from "react-redux";
+import {useEffect} from "react";
+import {fetchDetailBegin} from "./actions/Detail.actions";
 
 
 const Detail = (props) => {
     const {id} = useParams();
 
-
+    useEffect(() => {
+        props.fetchDetailBegin(id);
+    }, []);
     return (
         <>
             <div className={styles.detailArea}>
@@ -34,14 +38,13 @@ const Detail = (props) => {
 const mapStateToProps = (state, props) => {
 
     return {
-        list: state.LiveSearchReducer.list,
-        isLoading: state.LiveSearchReducer.isLoading
+        detail: state.DetailReducer.detail,
+        isLoading: state.DetailReducer.isLoading
     };
 };
 const mapDispachToProps = (dispatch) => {
     return {
-        fetchList: (data) => dispatch(fetchListBegin(data)),
-        abortRequest: () => dispatch(abortRequest())
+        fetchDetailBegin: (data) => dispatch(fetchDetailBegin(data))
     };
 };
 export default connect(
