@@ -32,14 +32,12 @@ export function getDetail(id) {
 
 export function* fetchDetail(action) {
 
-    // yield put(listIsLoading(true));
     console.log(action)
     const result = yield call(getDetail, action.payload);
     if (result) {
         yield put(fetchDetailSuccess(result));
 
     }
-    // yield put(listIsLoading(false));
 
 }
 
