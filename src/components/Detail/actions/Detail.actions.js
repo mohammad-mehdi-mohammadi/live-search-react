@@ -1,7 +1,9 @@
 import {
     FETCH_DETAIL_BEGIN,
-    FETCH_DETAIL_SUCCESS
+    FETCH_DETAIL_SUCCESS,
+    ABORT_REQUEST
 } from './../constants/Detail.constants';
+
 
 
 export function fetchDetailBegin(payload) {
@@ -17,3 +19,10 @@ export function fetchDetailSuccess(payload) {
         payload,
     };
 }
+export function abortRequest() {
+
+    return {
+        type: ABORT_REQUEST
+    };
+}
+

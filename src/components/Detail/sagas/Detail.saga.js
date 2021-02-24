@@ -3,11 +3,11 @@ import {
     FETCH_DETAIL_BEGIN,
 } from './../constants/Detail.constants';
 import {
-    fetchDetailBegin,
     fetchDetailSuccess,
 } from './../actions/Detail.actions';
 import axios from 'axios';
 import {endpoint} from './../../../_shared/axios-proxy/setupProxy'
+import {ABORT_REQUEST} from "../constants/Detail.constants";
 
 
 let CancelToken = axios.CancelToken.source()
@@ -32,11 +32,9 @@ export function getDetail(id) {
 
 export function* fetchDetail(action) {
 
-    console.log(action)
     const result = yield call(getDetail, action.payload);
     if (result) {
         yield put(fetchDetailSuccess(result));
-
     }
 
 }
@@ -46,11 +44,11 @@ export function* abortRequest() {
         CancelToken.cancel('cancelled');
         CancelToken = axios.CancelToken.source()
     }
-
 }
+
 
 // All sagas to be loaded
 export default [
     takeLatest(FETCH_DETAIL_BEGIN, fetchDetail),
-    // takeLatest(ABORT_REQUEST, abortRequest),
+    takeLatest(ABORT_REQUEST, abortRequest),
 ];

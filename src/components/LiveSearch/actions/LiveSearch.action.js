@@ -2,7 +2,6 @@ import {
     ABORT_REQUEST,
     FETCH_LIST_BEGIN,
     FETCH_LIST_SUCCESS,
-    LIST_IS_LOADING,
 } from '../constants/LiveSearch.constant';
 
 
@@ -21,7 +20,6 @@ export function fetchListBegin(data) {
     };
 }
 export function abortRequest() {
-
     return {
         type: ABORT_REQUEST
     };

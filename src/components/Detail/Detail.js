@@ -4,14 +4,19 @@ import {useParams} from "react-router";
 
 import {connect} from "react-redux";
 import {useEffect} from "react";
-import {fetchDetailBegin} from "./actions/Detail.actions";
+import {fetchDetailBegin, abortRequest} from "./actions/Detail.actions";
+
 
 
 const Detail = (props) => {
     const {id} = useParams();
 
+
     useEffect(() => {
         props.fetchDetailBegin(id);
+        return () => {
+            props.abortRequest();
+        }
     }, []);
     return (
         <>
@@ -44,7 +49,8 @@ const mapStateToProps = (state, props) => {
 };
 const mapDispachToProps = (dispatch) => {
     return {
-        fetchDetailBegin: (data) => dispatch(fetchDetailBegin(data))
+        fetchDetailBegin: (data) => dispatch(fetchDetailBegin(data)),
+        abortRequest: () => dispatch(abortRequest())
     };
 };
 export default connect(
