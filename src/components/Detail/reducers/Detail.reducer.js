@@ -23,8 +23,10 @@ export default function (state = initialState, action) {
 
             return {
                 ...state,
-                title: action.payload.title,
-                field: action.payload.field,
+                detail: {
+                    title: action.payload.title,
+                    field: action.payload.Field,
+                },
                 isLoading: false,
             };
         default:

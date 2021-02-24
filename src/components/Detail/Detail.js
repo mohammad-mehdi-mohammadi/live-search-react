@@ -23,9 +23,9 @@ const Detail = (props) => {
                             <div className="loader"></div>
                         </div> :
                         <div>
-                            <h3>Title</h3>
+                            <h3>Title: {props.detail.title}</h3>
                             <div>
-                                Field
+                                Field: {props.detail.field}
                             </div>
                         </div>
                 }

@@ -25,7 +25,7 @@ export function getDetail(id) {
             return response.data;
         })
         .catch(function (error) {
-            return null;
+            return error;
         });
     return result
 }

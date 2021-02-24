@@ -23,7 +23,7 @@ export function getSuggestions(value) {
             return response.data;
         })
         .catch(function (error) {
-            return null;
+            return error;
         });
     return result
 }
