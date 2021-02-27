@@ -3,7 +3,7 @@ import styles from './LiveSearch.module.sass'
 import {useEffect, useRef, useState} from "react";
 import {
     fetchListBegin,
-    abortRequest
+    abortRequest, initialList
 } from './actions/LiveSearch.action';
 import {connect} from "react-redux";
 import useOutsideClick from "./DropDown";
@@ -23,6 +23,7 @@ const LiveSearch = (props) => {
             return;
         }
         timer = setTimeout(() => {
+
             props.fetchListBegin(value);
             console.log('This will run after 1 second!')
         }, 700);
@@ -30,6 +31,9 @@ const LiveSearch = (props) => {
     useOutsideClick(ref, () => {
         setToggleOpen(!toggleOpen)
     });
+    const reset = () => {
+        props.initialList()
+    }
     useEffect(() => {
         return () => {
             clearTimeout(timer);
@@ -41,7 +45,7 @@ const LiveSearch = (props) => {
             <div className={styles.searchArea}>
 
                 <input placeholder="Search..." className={styles.searchInput}
-                       onChange={e => handleChange(e.target.value)} title = "dummyInput"/>
+                       onChange={e => handleChange(e.target.value)} title="dummyInput"/>
 
                 {
                     props.isLoading &&
@@ -57,7 +61,7 @@ const LiveSearch = (props) => {
                         {
                             props.list.map(function (person, index) {
                                 return (
-                                    <Link to={`/detail/${person.id}`}
+                                    <Link to={`/detail/${person.id}`} onClick={reset}
                                           key={index}>{person.name}, {person.family}</Link>
                                 );
                             })
@@ -80,7 +84,8 @@ const mapStateToProps = (state, props) => {
 const mapDispachToProps = (dispatch) => {
     return {
         fetchListBegin: (data) => dispatch(fetchListBegin(data)),
-        abortRequest: () => dispatch(abortRequest())
+        abortRequest: () => dispatch(abortRequest()),
+        initialList: () => dispatch(initialList())
     };
 };
 export default connect(

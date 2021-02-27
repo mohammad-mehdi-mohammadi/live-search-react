@@ -1,12 +1,12 @@
-import {put, call, takeLatest} from 'redux-saga/effects';
+import {put, call, takeLatest, take} from 'redux-saga/effects';
 import {
-    ABORT_REQUEST, FETCH_LIST_BEGIN
+    ABORT_REQUEST, FETCH_LIST_BEGIN, INIT_LIST
 } from './../constants/LiveSearch.constant';
 import {
-    fetchListSuccess,
+    fetchListSuccess, initialList
 } from './../actions/LiveSearch.action';
 import axios from 'axios';
-import {endpoint} from '../../../_shared/axios-proxy/setupProxy'
+import {endpoint} from '../../../_shared/axios-proxy/setupProxy';
 
 let CancelToken = axios.CancelToken.source()
 
@@ -37,6 +37,10 @@ export function* fetchListFlow(action) {
     }
 }
 
+export function* initialListFlow() {
+    put({ type: 'INIT_LIST' })
+}
+
 export function* abortRequest() {
     if (CancelToken) {
         CancelToken.cancel('cancelled');
@@ -48,4 +52,5 @@ export function* abortRequest() {
 export default [
     takeLatest(FETCH_LIST_BEGIN, fetchListFlow),
     takeLatest(ABORT_REQUEST, abortRequest),
+    takeLatest(INIT_LIST, initialListFlow),
 ];
