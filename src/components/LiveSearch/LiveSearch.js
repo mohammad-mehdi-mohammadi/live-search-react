@@ -41,7 +41,7 @@ const LiveSearch = (props) => {
             <div className={styles.searchArea}>
 
                 <input placeholder="Search..." className={styles.searchInput}
-                       onChange={e => handleChange(e.target.value)}/>
+                       onChange={e => handleChange(e.target.value)} title = "dummyInput"/>
 
                 {
                     props.isLoading &&

@@ -7,13 +7,12 @@ import Home from "./components/Home/Home";
 import Detail from "./components/Detail/Detail";
 
 
-
 function App() {
     return (
         <div className="App">
             <Header/>
             <Switch>
-                <Route exact path='/live-search'><LiveSearch/></Route>
+                <Route exact path='/live-search' component={LiveSearch}/>
                 <Route exact path='/detail/:id' component={Detail}/>
                 <Route exact path='/home' component={Home}/>
             </Switch>
