@@ -1,19 +1,36 @@
-import { useEffect } from "react";
+import * as React from "react";
+import {Link} from "react-router-dom";
+import {initialList} from "./actions/LiveSearch.action";
+import {connect} from "react-redux";
 
-const useOutsideClick = (ref, callback) => {
-    const handleClick = e => {
-        if (ref.current && !ref.current.contains(e.target)) {
-            callback();
-        }
+
+const DropDown = (props) => {
+
+    const reset = () => {
+        props.initialList()
+    }
+    return (
+        <>
+            
+            {
+                props.list.map(function (person, index) {
+                    return (
+                        <Link to={`/detail/${person.id}`} onClick={reset}
+                              key={index}>{person.name}, {person.family}</Link>
+                    );
+                })
+            }
+
+        </>
+    );
+}
+
+const mapDispachToProps = (dispatch) => {
+    return {
+        initialList: () => dispatch(initialList())
     };
-
-    useEffect(() => {
-        document.addEventListener("click", handleClick);
-
-        return () => {
-            document.removeEventListener("click", handleClick);
-        };
-    });
 };
-
-export default useOutsideClick;
+export default connect(
+    null,
+    mapDispachToProps
+)(DropDown);

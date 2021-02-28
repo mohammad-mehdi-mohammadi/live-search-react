@@ -1,18 +1,16 @@
 import * as React from "react";
 import styles from './LiveSearch.module.sass'
-import {useEffect, useRef, useState} from "react";
+import {useEffect} from "react";
 import {
     fetchListBegin,
-    abortRequest, initialList
+    abortRequest
 } from './actions/LiveSearch.action';
 import {connect} from "react-redux";
-import useOutsideClick from "./DropDown";
-import {Link} from "react-router-dom";
+
+import DropDown from "./DropDown";
 
 const LiveSearch = (props) => {
 
-    const ref = useRef();
-    const [toggleOpen, setToggleOpen] = useState(true)
     let timer = null
     const handleChange = (value) => {
         if (timer !== null) {
@@ -25,15 +23,10 @@ const LiveSearch = (props) => {
         timer = setTimeout(() => {
 
             props.fetchListBegin(value);
-            console.log('This will run after 1 second!')
         }, 700);
     }
-    useOutsideClick(ref, () => {
-        setToggleOpen(!toggleOpen)
-    });
-    const reset = () => {
-        props.initialList()
-    }
+
+
     useEffect(() => {
         return () => {
             clearTimeout(timer);
@@ -42,6 +35,7 @@ const LiveSearch = (props) => {
     }, []);
     return (
         <>
+
             <div className={styles.searchArea}>
 
                 <input placeholder="Search..." className={styles.searchInput}
@@ -57,15 +51,8 @@ const LiveSearch = (props) => {
 
                 {
                     props.list.length > 0 &&
-                    <div className={styles.suggestionArea} ref={ref}>
-                        {
-                            props.list.map(function (person, index) {
-                                return (
-                                    <Link to={`/detail/${person.id}`} onClick={reset}
-                                          key={index}>{person.name}, {person.family}</Link>
-                                );
-                            })
-                        }
+                    <div className={styles.suggestionArea}>
+                        <DropDown list ={props.list}></DropDown>
                     </div>
                 }
 
@@ -84,8 +71,7 @@ const mapStateToProps = (state, props) => {
 const mapDispachToProps = (dispatch) => {
     return {
         fetchListBegin: (data) => dispatch(fetchListBegin(data)),
-        abortRequest: () => dispatch(abortRequest()),
-        initialList: () => dispatch(initialList())
+        abortRequest: () => dispatch(abortRequest())
     };
 };
 export default connect(
