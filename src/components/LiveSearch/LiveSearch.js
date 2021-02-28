@@ -51,8 +51,8 @@ const LiveSearch = (props) => {
 
                 {
                     props.list.length > 0 &&
-                    <div className={styles.suggestionArea}>
-                        <DropDown list ={props.list}></DropDown>
+                    <div>
+                        <DropDown list={props.list}></DropDown>
                     </div>
                 }
 
