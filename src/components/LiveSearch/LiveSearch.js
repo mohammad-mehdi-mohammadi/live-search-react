@@ -8,6 +8,7 @@ import {
 import {connect} from "react-redux";
 
 import DropDown from "./DropDown";
+import {Input, Loader} from "rsuite";
 
 const LiveSearch = (props) => {
 
@@ -37,15 +38,13 @@ const LiveSearch = (props) => {
         <>
 
             <div className={styles.searchArea}>
-
-                <input placeholder="Search..." className={styles.searchInput}
-                       onChange={e => handleChange(e.target.value)} title="dummyInput"/>
+                <Input placeholder="Search..." className={styles.searchInput}
+                       onChange={handleChange}/>
 
                 {
                     props.isLoading &&
-                    <div className={styles.loading}>
-                        <div className="loader"></div>
-                    </div>
+                    <Loader size="xs" className = {styles.loading} />
+
                 }
 
 

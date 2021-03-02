@@ -13,15 +13,12 @@ const DropDown = (props) => {
     }
     const handleClick = e => {
         if (node.current.contains(e.target)) {
-            // inside click
-            console.log('inside')
             return;
-        }  // outside click
-        console.log('outside')
+        }
+        reset();
     };
     useEffect(() => {
-        // add when mounted
-        document.addEventListener("mousedown", handleClick);  // return function to be called when unmounted
+        document.addEventListener("mousedown", handleClick);
         return () => {
             document.removeEventListener("mousedown", handleClick);
         };
@@ -29,16 +26,16 @@ const DropDown = (props) => {
     return (
         <>
             <div className={styles.suggestionArea} ref={node}>
-                ...
+                {
+                    props.list.map(function (person, index) {
+                        return (
+                            <Link to={`/detail/${person.id}`} onClick={reset}
+                                  key={index}>{person.name}, {person.family}</Link>
+                        );
+                    })
+                }
             </div>
-            {/*{*/}
-            {/*    props.list.map(function (person, index) {*/}
-            {/*        return (*/}
-            {/*            <Link to={`/detail/${person.id}`} onClick={reset}*/}
-            {/*                  key={index}>{person.name}, {person.family}</Link>*/}
-            {/*        );*/}
-            {/*    })*/}
-            {/*}*/}
+
 
         </>
     );

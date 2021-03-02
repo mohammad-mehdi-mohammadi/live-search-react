@@ -5,3 +5,13 @@ body {
 * {
   box-sizing: border-box;
 }
+*:focus {
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover, a:focus {
+  text-decoration: none !important;
+}
