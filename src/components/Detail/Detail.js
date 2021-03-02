@@ -5,6 +5,7 @@ import {useParams} from "react-router";
 import {connect} from "react-redux";
 import {useEffect} from "react";
 import {fetchDetailBegin, abortRequest} from "./actions/Detail.actions";
+import {Loader} from "rsuite";
 
 
 
@@ -24,8 +25,8 @@ const Detail = (props) => {
 
                 {
                     props.isLoading ?
-                        <div className={styles.loading}>
-                            <div className="loader"></div>
+                        <div className={styles.loadingArea}>
+                            <Loader size="xs" className = {styles.loading} />
                         </div> :
                         <div>
                             <h3>Title: {props.detail.title}</h3>
