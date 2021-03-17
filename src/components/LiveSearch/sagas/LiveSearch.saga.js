@@ -1,4 +1,4 @@
-import {put, call, takeLatest, take} from 'redux-saga/effects';
+import {put, call, takeLatest} from 'redux-saga/effects';
 import {
     ABORT_REQUEST, FETCH_LIST_BEGIN, INIT_LIST
 } from './../constants/LiveSearch.constant';
@@ -11,7 +11,6 @@ import {endpoint} from '../../../_shared/axios-proxy/setupProxy';
 let CancelToken = axios.CancelToken.source()
 
 export function getSuggestions(value) {
-
     abortRequest()
     const result = endpoint.get(`/get-posts?term=${value}`, {
         cancelToken: CancelToken.token
@@ -30,7 +29,6 @@ export function* fetchListFlow(action) {
     const result = yield call(getSuggestions, action.value);
     if (result) {
         yield put(fetchListSuccess(result));
-
     }
 }
 

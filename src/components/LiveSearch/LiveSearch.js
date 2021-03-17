@@ -27,7 +27,6 @@ const LiveSearch = (props) => {
         }, 700);
     }
     const onFocusHandle = () => {
-        console.log('asdasd')
         setVisible(true)
     }
     const handleClickOutside = () => {
@@ -41,18 +40,13 @@ const LiveSearch = (props) => {
     }, []);
     return (
         <>
-
             <div className={styles.searchArea}>
                 <Input placeholder="Search..." className={styles.searchInput} onFocus={onFocusHandle}
                        onChange={handleChange}/>
-
                 {
                     props.isLoading &&
                     <Loader size="xs" className={styles.loading}/>
-
                 }
-
-
                 {
                     visible &&
                     <div>
@@ -65,7 +59,7 @@ const LiveSearch = (props) => {
     );
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state) => {
 
     return {
         list: state.LiveSearchReducer.list,
