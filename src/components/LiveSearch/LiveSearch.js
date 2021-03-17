@@ -1,17 +1,17 @@
 import * as React from "react";
 import styles from './LiveSearch.module.sass'
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {
     fetchListBegin,
     abortRequest
 } from './actions/LiveSearch.action';
 import {connect} from "react-redux";
 
-import DropDown from "./DropDown";
+import DropDown from "./components/DropDown/DropDown";
 import {Input, Loader} from "rsuite";
 
 const LiveSearch = (props) => {
-
+    const [visible, setVisible] = useState(false)
     let timer = null
     const handleChange = (value) => {
         if (timer !== null) {
@@ -26,8 +26,13 @@ const LiveSearch = (props) => {
             props.fetchListBegin(value);
         }, 700);
     }
-
-
+    const onFocusHandle = () => {
+        console.log('asdasd')
+        setVisible(true)
+    }
+    const handleClickOutside = () => {
+        setVisible(false)
+    }
     useEffect(() => {
         return () => {
             clearTimeout(timer);
@@ -38,20 +43,20 @@ const LiveSearch = (props) => {
         <>
 
             <div className={styles.searchArea}>
-                <Input placeholder="Search..." className={styles.searchInput}
+                <Input placeholder="Search..." className={styles.searchInput} onFocus={onFocusHandle}
                        onChange={handleChange}/>
 
                 {
                     props.isLoading &&
-                    <Loader size="xs" className = {styles.loading} />
+                    <Loader size="xs" className={styles.loading}/>
 
                 }
 
 
                 {
-                    props.list.length > 0 &&
+                    visible &&
                     <div>
-                        <DropDown list={props.list}></DropDown>
+                        <DropDown list={props.list} onClickOutside = {handleClickOutside}></DropDown>
                     </div>
                 }
 
