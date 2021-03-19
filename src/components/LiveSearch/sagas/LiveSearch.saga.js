@@ -1,12 +1,9 @@
 import {put, call, takeLatest} from 'redux-saga/effects';
-import {
-    ABORT_REQUEST, FETCH_LIST_BEGIN, INIT_LIST
-} from './../constants/LiveSearch.constant';
-import {
-    fetchListSuccess
-} from './../actions/LiveSearch.action';
+
+
 import axios from 'axios';
 import {endpoint} from '../../../_shared/axios-proxy/setupProxy';
+import {fetchListBegin, initList} from "../reducers/LiveSearch.reducer";
 
 let CancelToken = axios.CancelToken.source()
 
@@ -26,19 +23,22 @@ export function getSuggestions(value) {
 
 export function* fetchListFlow(action) {
 
-    const result = yield call(getSuggestions, action.value);
+    const result = yield call(getSuggestions, action.payload);
     if (result) {
-        yield put(fetchListSuccess(result));
+        console.log(action, 'sdasda')
+        yield put({type: 'liveSearchList/fetchListSuccess', payload: result});
+        // dispatch({ type: 'liveSearchList/fetchListSuccess', action: result })
     }
 }
 
 export function* initialListFlow() {
-    put({ type: 'INIT_LIST' })
+    put({type: 'INIT_LIST'})
 }
 
 export function* abortRequestFlow() {
     abortRequest();
 }
+
 export function abortRequest() {
     if (CancelToken) {
         CancelToken.cancel('cancelled');
@@ -48,7 +48,7 @@ export function abortRequest() {
 
 // All sagas to be loaded
 export default [
-    takeLatest(FETCH_LIST_BEGIN, fetchListFlow),
-    takeLatest(ABORT_REQUEST, abortRequestFlow),
-    takeLatest(INIT_LIST, initialListFlow),
+    takeLatest(fetchListBegin, fetchListFlow),
+    takeLatest('dasda/abortRequestx', abortRequestFlow),
+    takeLatest(initList, initialListFlow),
 ];

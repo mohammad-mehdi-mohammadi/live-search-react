@@ -5,12 +5,14 @@ import {
     fetchListBegin,
     abortRequest
 } from './actions/LiveSearch.action';
-import {connect} from "react-redux";
-
+import {useDispatch} from "react-redux";
+import { useSelector } from 'react-redux'
 import DropDown from "./components/DropDown/DropDown";
 import {Input, Loader} from "rsuite";
 
 const LiveSearch = (props) => {
+    const dispatch = useDispatch()
+    const liveSearchList = useSelector(state => state.liveSearchList)
     const [visible, setVisible] = useState(false)
     let timer = null
     const handleChange = (value) => {
@@ -18,12 +20,11 @@ const LiveSearch = (props) => {
             clearTimeout(timer)
         }
         if (value.length <= 0) {
-            props.abortRequest();
+            dispatch({ type: 'dasda/abortRequestx' })
             return;
         }
         timer = setTimeout(() => {
-
-            props.fetchListBegin(value);
+            dispatch({ type: 'liveSearchList/fetchListBegin', payload: value })
         }, 700);
     }
     const onFocusHandle = () => {
@@ -35,7 +36,7 @@ const LiveSearch = (props) => {
     useEffect(() => {
         return () => {
             clearTimeout(timer);
-            props.abortRequest();
+            dispatch({ type: 'dasda/abortRequestx' })
         }
     }, []);
     return (
@@ -44,13 +45,13 @@ const LiveSearch = (props) => {
                 <Input placeholder="Search..." className={styles.searchInput} onFocus={onFocusHandle}
                        onChange={handleChange}/>
                 {
-                    props.isLoading &&
+                    liveSearchList.isLoading &&
                     <Loader size="xs" className={styles.loading}/>
                 }
                 {
                     visible &&
                     <div>
-                        <DropDown list={props.list} onClickOutside = {handleClickOutside}></DropDown>
+                        <DropDown list={liveSearchList.list} onClickOutside = {handleClickOutside}></DropDown>
                     </div>
                 }
 
@@ -58,21 +59,21 @@ const LiveSearch = (props) => {
         </>
     );
 }
-
-const mapStateToProps = (state) => {
-
-    return {
-        list: state.LiveSearchReducer.list,
-        isLoading: state.LiveSearchReducer.isLoading
-    };
-};
-const mapDispachToProps = (dispatch) => {
-    return {
-        fetchListBegin: (data) => dispatch(fetchListBegin(data)),
-        abortRequest: () => dispatch(abortRequest())
-    };
-};
-export default connect(
-    mapStateToProps,
-    mapDispachToProps
-)(LiveSearch);
+export default LiveSearch;
+// const mapStateToProps = (state) => {
+//
+//     return {
+//         list: state.LiveSearchReducer.list,
+//         isLoading: state.LiveSearchReducer.isLoading
+//     };
+// };
+// const mapDispachToProps = (dispatch) => {
+//     return {
+//         fetchListBegin: (data) => dispatch(fetchListBegin(data)),
+//         abortRequest: () => dispatch(abortRequest())
+//     };
+// };
+// export default connect(
+//     mapStateToProps,
+//     mapDispachToProps
+// )(LiveSearch);

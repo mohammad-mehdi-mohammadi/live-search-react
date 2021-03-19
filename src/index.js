@@ -4,12 +4,12 @@ import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
 
-import reducer from "./redux/reducers/index";
+
 import {Provider} from "react-redux";
 import {createStore, applyMiddleware} from "redux";
 import createSagaMiddleware from "redux-saga";
 import {rootSaga} from "./redux/sagas";
-
+import reducer from "./redux/reducers/index";
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(sagaMiddleware));
 // applyMiddleware(sagaMiddleware)
