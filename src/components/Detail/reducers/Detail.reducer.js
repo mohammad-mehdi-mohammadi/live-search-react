@@ -1,7 +1,3 @@
-import {
-    FETCH_DETAIL_BEGIN,
-    FETCH_DETAIL_SUCCESS
-} from './../constants/Detail.constants';
 
 const initialState = {
     detail: {

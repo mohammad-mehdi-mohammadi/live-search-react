@@ -1,5 +1,8 @@
 import {put, call, takeLatest} from 'redux-saga/effects';
+import {
 
+    FETCH_LIST_BEGIN,
+} from '../constants/LiveSearch.constant';
 
 import axios from 'axios';
 import {endpoint} from '../../../_shared/axios-proxy/setupProxy';
@@ -25,9 +28,9 @@ export function* fetchListFlow(action) {
 
     const result = yield call(getSuggestions, action.payload);
     if (result) {
-        console.log(action, 'sdasda')
-        yield put({type: 'liveSearchList/fetchListSuccess', payload: result});
-        // dispatch({ type: 'liveSearchList/fetchListSuccess', action: result })
+
+        yield put(fetchListBegin(result))
+
     }
 }
 
@@ -48,7 +51,7 @@ export function abortRequest() {
 
 // All sagas to be loaded
 export default [
-    takeLatest(fetchListBegin, fetchListFlow),
+    takeLatest(FETCH_LIST_BEGIN, fetchListFlow),
     takeLatest('dasda/abortRequestx', abortRequestFlow),
     takeLatest(initList, initialListFlow),
 ];
