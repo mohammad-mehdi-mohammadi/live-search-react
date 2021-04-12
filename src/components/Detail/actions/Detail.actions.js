@@ -5,7 +5,6 @@ import {
 } from './../constants/Detail.constants';
 
 
-
 export function fetchDetailBegin(payload) {
     return {
         type: FETCH_DETAIL_BEGIN,
@@ -19,6 +18,7 @@ export function fetchDetailSuccess(payload) {
         payload,
     };
 }
+
 export function abortRequest() {
 
     return {

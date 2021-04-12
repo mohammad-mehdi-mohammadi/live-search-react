@@ -1,6 +1,7 @@
 import {put, call, takeLatest} from 'redux-saga/effects';
 import {
-
+    INIT_LIST,
+    ABORT_REQUEST,
     FETCH_LIST_BEGIN,
 } from '../constants/LiveSearch.constant';
 
@@ -35,7 +36,8 @@ export function* fetchListFlow(action) {
 }
 
 export function* initialListFlow() {
-    put({type: 'INIT_LIST'})
+    put({type: INIT_LIST})
+
 }
 
 export function* abortRequestFlow() {
@@ -52,6 +54,6 @@ export function abortRequest() {
 // All sagas to be loaded
 export default [
     takeLatest(FETCH_LIST_BEGIN, fetchListFlow),
-    takeLatest('dasda/abortRequestx', abortRequestFlow),
-    takeLatest(initList, initialListFlow),
+    takeLatest(ABORT_REQUEST, abortRequestFlow),
+    takeLatest(INIT_LIST, initialListFlow),
 ];

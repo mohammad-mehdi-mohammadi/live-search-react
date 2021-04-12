@@ -7,7 +7,7 @@ const initialState = {
 
 
 const LiveSearchSlice = createSlice({
-    name: 'liveSearchList',
+    name: 'liveSearchState',
     initialState,
     reducers: {
         fetchListBegin(state) {

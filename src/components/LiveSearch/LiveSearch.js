@@ -7,20 +7,21 @@ import DropDown from "./components/DropDown/DropDown";
 import {Input, Loader} from "rsuite";
 
 import {
+    ABORT_REQUEST,
 
     FETCH_LIST_BEGIN
 } from './constants/LiveSearch.constant';
 
 let timer = null
-const LiveSearch = (props) => {
+const LiveSearch = () => {
     const dispatch = useDispatch()
-    const liveSearchList = useSelector(state => state.liveSearchList)
+    const liveSearchState = useSelector(state => state.liveSearchState)
     const [visible, setVisible] = useState(false)
 
     const handleChange = (value) => {
         clearTimeoutHandle();
         if (value.length <= 0) {
-            dispatch({type: 'dasda/abortRequestx'})
+            dispatch({type: ABORT_REQUEST})
             return;
         }
 
@@ -39,7 +40,7 @@ const LiveSearch = (props) => {
     useEffect(() => {
         return () => {
             clearTimeoutHandle();
-            // dispatch({ type: 'dasda/abortRequestx' })
+            dispatch({type: ABORT_REQUEST})
         }
     }, []);
     const clearTimeoutHandle = () => {
@@ -53,13 +54,13 @@ const LiveSearch = (props) => {
                 <Input placeholder="Search..." className={styles.searchInput} onFocus={onFocusHandle}
                        onChange={handleChange}/>
                 {
-                    liveSearchList.isLoading &&
+                    liveSearchState.isLoading &&
                     <Loader size="xs" className={styles.loading}/>
                 }
                 {
                     visible &&
                     <div>
-                        <DropDown list={liveSearchList.list} onClickOutside={handleClickOutside}></DropDown>
+                        <DropDown list={liveSearchState.list} onClickOutside={handleClickOutside}></DropDown>
                     </div>
                 }
 

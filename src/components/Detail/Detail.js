@@ -2,21 +2,24 @@ import * as React from "react";
 import styles from './Detail.module.sass'
 import {useParams} from "react-router";
 
-import {connect} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {fetchDetailBegin, abortRequest} from "./actions/Detail.actions";
+
 import {Loader} from "rsuite";
 
+import {ABORT_REQUEST, FETCH_DETAIL_BEGIN} from "./constants/Detail.constants";
 
 
-const Detail = (props) => {
+const Detail = () => {
     const {id} = useParams();
-
+    const dispatch = useDispatch()
+    const detailState = useSelector(state => state.detailState)
 
     useEffect(() => {
-        props.fetchDetailBegin(id);
+        dispatch({type: FETCH_DETAIL_BEGIN, payload: id})
+        // props.fetchDetailBegin(id);
         return () => {
-            props.abortRequest();
+            dispatch({type: ABORT_REQUEST})
         }
     }, []);
     return (
@@ -24,14 +27,14 @@ const Detail = (props) => {
             <div className={styles.detailArea}>
 
                 {
-                    props.isLoading ?
+                    detailState.isLoading ?
                         <div className={styles.loadingArea}>
-                            <Loader size="xs" className = {styles.loading} />
+                            <Loader size="xs" className={styles.loading}/>
                         </div> :
                         <div>
-                            <h3>Title: {props.detail.title}</h3>
+                            <h3>Title: {detailState.detail.title}</h3>
                             <div>
-                                Field: {props.detail.field}
+                                Field: {detailState.detail.field}
                             </div>
                         </div>
                 }
@@ -41,20 +44,23 @@ const Detail = (props) => {
     );
 }
 
-const mapStateToProps = (state, props) => {
+export default Detail;
 
-    return {
-        detail: state.DetailReducer.detail,
-        isLoading: state.DetailReducer.isLoading
-    };
-};
-const mapDispachToProps = (dispatch) => {
-    return {
-        fetchDetailBegin: (data) => dispatch(fetchDetailBegin(data)),
-        abortRequest: () => dispatch(abortRequest())
-    };
-};
-export default connect(
-    mapStateToProps,
-    mapDispachToProps
-)(Detail);
+//
+// const mapStateToProps = (state, props) => {
+//
+//     return {
+//         detail: state.DetailReducer.detail,
+//         isLoading: state.DetailReducer.isLoading
+//     };
+// };
+// const mapDispachToProps = (dispatch) => {
+//     return {
+//         fetchDetailBegin: (data) => dispatch(fetchDetailBegin(data)),
+//         abortRequest: () => dispatch(abortRequest())
+//     };
+// };
+// export default connect(
+//     mapStateToProps,
+//     mapDispachToProps
+// )(Detail);
